@@ -1,0 +1,39 @@
+---
+title: "Fracture_Identification"
+author: "Brian"
+date: "2024-04-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(OpenImageR)
+library(tidyverse)
+library(keras)
+library(tensorflow)
+library(reticulate)
+img_src = "FracAtlas/images/Fractured/"
+image_list <- list.files(path=img_src, pattern="*.jpg")
+
+setwd("C:/Users/btbip/OneDrive/Documents/Spring24/DS4002/Proj3/FracAtlas/Utilities/Fracture Split")
+```
+
+```{r}
+train = read.csv("FracAtlas/Utilities/Fracture Split/train.csv")
+test = read.csv("FracAtlas/Utilities/Fracture Split/test.csv")
+train_img = c()
+test_img = c()
+
+for (i in image_list) {
+  if (any(train == image_list[i]) == TRUE) {
+    train_img <- c(train_img, image_list[i])
+  }
+  else {
+    test_image <- c(test_img, image_list[i])
+  }
+}
+
+
+```
+
