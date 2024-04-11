@@ -1,0 +1,56 @@
+---
+title: "Fracture_Identification"
+author: "Brian"
+date: "2024-04-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(OpenImageR)
+library(tensorflow)
+library(reticulate)
+img_src = "FracAtlas/images/"
+
+
+#y = readImage(paste(img_src, image_list[i], sep=""))
+
+
+```
+
+```{r}
+train = read.csv("FracAtlas/Utilities/Fracture Split/train.csv")
+test = read.csv("FracAtlas/Utilities/Fracture Split/test.csv")
+data = read.csv("FracAtlas/dataset.csv")
+
+frac_ids = c(data[which(data$fractured == 1),]$image_id)
+unfrac_ids = c(data[which(data$fractured == 0),]$image_id)
+do.call(file.remove, list(list.files("FracAtlas/images/test/Fractured", full.names = TRUE)))
+do.call(file.remove, list(list.files("FracAtlas/images/train/Fractured", full.names = TRUE)))
+do.call(file.remove, list(list.files("FracAtlas/images/test/Not Fractured", full.names = TRUE)))
+do.call(file.remove, list(list.files("FracAtlas/images/train/Not Fractured", full.names = TRUE)))
+for (i in frac_ids) {
+  rand = runif(1, min = 0, max = 5)
+  if (rand <= 4) {
+    file.copy(from = paste("FracAtlas/images/Fractured/", i, sep = ""), to = "FracAtlas/images/train/Fractured")
+  }
+  else {
+    file.copy(from = paste("FracAtlas/images/Fractured/", i, sep = ""), to = "FracAtlas/images/test/Fractured")
+  }
+}
+
+for (i in unfrac_ids) {
+  rand = runif(1, min = 0, max = 5)
+  if (rand <= 4) {
+    file.copy(from = paste("FracAtlas/images/Non_fractured/", i, sep = ""), to = "FracAtlas/images/train/Not Fractured")
+  }
+  else {
+    file.copy(from = paste("FracAtlas/images/Non_fractured/", i, sep = ""), to = "FracAtlas/images/test/Not Fractured")
+  }
+}
+  
+
+```
+
+
