@@ -28,9 +28,11 @@ X_train = pd.DataFrame(X_train)
 
 ### use lists of jpegs to sort all images into appropriate folders
 
-# first set up directories:
+### first set up directories: ###
 # in FracAtlas, make a new directory called "Split", then make 2 directories inside "Split" named "Test" and "Train"
-# copy all images from both "Fractured" and "Non-fractured" in "images" to "Split"
+# Within the "Test" and "Train" directories, make 2 folders named "Fractured" and "Non-fractured" as well
+# Then copy all images from both "Fractured" and "Non-fractured" in "images" to "Split".
+# Now you're ready to run the below code.
 
 # now get a list of all the file names...
 Split_path = Frac_Atlas_path + "FracAtlas/Split"
@@ -45,3 +47,28 @@ for file in file_list:
     else:
         os.rename(Split_path+"/"+file, Split_path+"/Test/"+file)
     # move to Train if they are or Test if they aren't
+
+
+### now split test and train further into fractured and non-fractured categories
+
+# for Test:
+Test_file_list = [f for f in listdir(Split_path+"/Test") if isfile(join(Split_path+"/Test", f))]
+# if file in test appears in the frac list,
+for file in Test_file_list:
+    if frac[0].str.contains(file).any():
+        # put in Frac folder
+        os.rename(Split_path+"/Test/"+file, Split_path+"/Test/Fractured/"+file)
+    else:
+        # put in Nonfrac folder
+        os.rename(Split_path+"/Test/"+file, Split_path+"/Test/Non-fractured/"+file)
+
+# for Train:
+Train_file_list = [f for f in listdir(Split_path+"/Train") if isfile(join(Split_path+"/Train", f))]
+# if file in test appears in the frac list,
+for file in Train_file_list:
+    if frac[0].str.contains(file).any():
+        # put in Frac folder
+        os.rename(Split_path+"/Train/"+file, Split_path+"/Train/Fractured/"+file)
+    else:
+        # put in Nonfrac folder
+        os.rename(Split_path+"/Train/"+file, Split_path+"/Train/Non-fractured/"+file)
