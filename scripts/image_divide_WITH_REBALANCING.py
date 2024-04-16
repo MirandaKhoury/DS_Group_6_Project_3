@@ -1,6 +1,6 @@
-#### make test train split ####
+#### make test train split WITH REBALANCING ####
 
-### first make a df containing all jpeg file names and their classes
+### first make a df containing all jpeg file names and their classes ###
 import os
 import numpy as np
 
@@ -16,31 +16,35 @@ nonfrac_df = pd.concat([nonfrac, nonfrac_name], axis=1, ignore_index=True)
 
 df = pd.concat([frac_df, nonfrac_df], axis = 0 , ignore_index=True)
 
-### split into X and y
+### split into X and y ###
 X = df[0]
 y = df[1]
 
-### run test_train_split on X and y
+### run SMOTE oversampling ###
+from imblearn.over_sampling import SMOTE
+oversample = SMOTE(random_state=0)
+X, y = oversample.fit_resample(X, y)
+
+### run test_train_split on X and y ###
 from sklearn.model_selection import train_test_split
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size = 0.30, shuffle=True,random_state = 0)
 
 X_train = pd.DataFrame(X_train)
 
-### use lists of jpegs to sort all images into appropriate folders
+### use lists of jpegs to sort all images into appropriate folders ###
 
-### first set up directories: ###
+## first set up directories:
 # in FracAtlas, make a new directory called "Split", then make 2 directories inside "Split" named "Test" and "Train"
 # Within the "Test" and "Train" directories, make 2 folders named "Fractured" and "Non-fractured" as well
-# Then copy all images from both "Fractured" and "Non-fractured" in "images" to "Split".
-# Now you're ready to run the below code.
+# copy all images from both "Fractured" and "Non-fractured" in "images" to "Split"
 
-# now get a list of all the file names...
+## now get a list of all the file names...
 Split_path = Frac_Atlas_path + "FracAtlas/Split"
 from os import listdir
 from os.path import isfile, join
 file_list = [f for f in listdir(Split_path) if isfile(join(Split_path, f))] # get JUST files, not the Test/Train directories
 
-# and check if they're in X_train or not
+## and check if they're in X_train or not
 for file in file_list:
     if X_train[0].str.contains(file).any():
         os.rename(Split_path+"/"+file, Split_path+"/Train/"+file)
@@ -48,8 +52,7 @@ for file in file_list:
         os.rename(Split_path+"/"+file, Split_path+"/Test/"+file)
     # move to Train if they are or Test if they aren't
 
-
-### now split test and train further into fractured and non-fractured categories
+## now split test and train further into fractured and non-fractured categories
 
 # for Test:
 Test_file_list = [f for f in listdir(Split_path+"/Test") if isfile(join(Split_path+"/Test", f))]
