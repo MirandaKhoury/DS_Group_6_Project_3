@@ -76,4 +76,4 @@ model.fit(
     validation_steps=nb_validation_samples // batch_size)
 
 
-model.save_weights('model_saved.weights.h5')
+model.save('model.keras')
