@@ -1,4 +1,4 @@
-﻿Model,Loss,Accuracy,Number of instances
+﻿Model,Loss,Accuracy,Number of instances in dataset
 All,0.4233,0.8266,4083
 Hip,0.3611,0.8361,338
 Leg,0.3344,0.8956,2273
