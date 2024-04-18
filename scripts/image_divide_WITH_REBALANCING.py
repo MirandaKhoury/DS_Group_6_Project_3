@@ -1,4 +1,4 @@
-#### make test train split WITH REBALANCING ####
+#### make test train split WITH REBALANCING (undersampling) ####
 
 ### first make a df containing all jpeg file names and their classes ###
 import os
@@ -14,29 +14,27 @@ nonfrac = pd.DataFrame(os.listdir(Frac_Atlas_path + "FracAtlas/images/Non_fractu
 nonfrac_name = pd.DataFrame(np.repeat("Non-fractured", 3366))
 nonfrac_df = pd.concat([nonfrac, nonfrac_name], axis=1, ignore_index=True)
 
-df = pd.concat([frac_df, nonfrac_df], axis = 0 , ignore_index=True)
+# randomly undersample the nonfrac data
+import random
+index_list = random.sample(range(0, 3365), 717) # get 717 random indices
+nonfrac_df2 = nonfrac_df.iloc[index_list,:] # get just those rows from the nonfrac data
+
+df = pd.concat([frac_df, nonfrac_df2], axis = 0 , ignore_index=True)
 
 ### split into X and y ###
 X = df[0]
 y = df[1]
 
-### run SMOTE oversampling ###
-from imblearn.over_sampling import SMOTE
-oversample = SMOTE(random_state=0)
-X, y = oversample.fit_resample(X, y)
-
 ### run test_train_split on X and y ###
 from sklearn.model_selection import train_test_split
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size = 0.30, shuffle=True,random_state = 0)
-
-X_train = pd.DataFrame(X_train)
 
 ### use lists of jpegs to sort all images into appropriate folders ###
 
 ## first set up directories:
 # in FracAtlas, make a new directory called "Split", then make 2 directories inside "Split" named "Test" and "Train"
 # Within the "Test" and "Train" directories, make 2 folders named "Fractured" and "Non-fractured" as well
-# copy all images from both "Fractured" and "Non-fractured" in "images" to "Split"
+# Now copy all images from both "Fractured" and "Non-fractured" in "images" to "Split"
 
 ## now get a list of all the file names...
 Split_path = Frac_Atlas_path + "FracAtlas/Split"
