@@ -29,24 +29,24 @@ Data folder:
 
 Output folder:
 
--model_all vs. model_fractured
--model_all.keras
--model_all_balanced.keras
--model_fractured.keras
--model_hand.keras
--model_hip.keras
--model_leg.keras
--model_mixed.keras
--model_shoulder.keras
--model_stats.csv
+- model_all vs. model_fractured
+- model_all.keras
+- model_all_balanced.keras
+- model_fractured.keras
+- model_hand.keras
+- model_hip.keras
+- model_leg.keras
+- model_mixed.keras
+- model_shoulder.keras
+- model_stats.csv
 
 
 Scripts folder:
 
--all_image.py
--image_classification.py
--image_divide.Rmd
--image_divide_WITH_REBALANCING.py
+- all_image.py
+- image_classification.py
+- image_divide.Rmd
+- image_divide_WITH_REBALANCING.py
 
 
 ## Section 3: Instructions for reproducing results
