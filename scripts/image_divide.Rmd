@@ -24,6 +24,8 @@ train = read.csv("FracAtlas/Utilities/Fracture Split/train.csv")
 test = read.csv("FracAtlas/Utilities/Fracture Split/test.csv")
 data = read.csv("FracAtlas/dataset.csv")
 
+# these lines can be altered to be c(data[which(data$fractured == 1 & data$hand == 1),]$image_id to extract all images of fractured hands. 
+# This can be repeated for any other factor in data
 frac_ids = c(data[which(data$fractured == 1),]$image_id)
 unfrac_ids = c(data[which(data$fractured == 0),]$image_id)
 
