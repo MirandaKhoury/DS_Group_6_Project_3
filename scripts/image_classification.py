@@ -10,11 +10,12 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
  
 img_width, img_height = 224, 224
 
-
+# these two folder are filled by the .rmd script
 train_data_dir = 'FracAtlas/images/train'
 validation_data_dir = 'FracAtlas/images/test'
-nb_train_samples = 3264
-nb_validation_samples = 819
+nb_train_samples = {total number of training samples}
+nb_validation_samples = {total number of testing samples}
+
 epochs = 10
 batch_size = 16
 
@@ -76,4 +77,4 @@ model.fit(
     validation_steps=nb_validation_samples // batch_size)
 
 
-model.save('model.keras')
+model.save('{model name}.keras')
