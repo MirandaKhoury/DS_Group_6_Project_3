@@ -32,7 +32,7 @@ X_train, X_val, y_train, y_val = train_test_split(X, y, test_size = 0.30, shuffl
 ### use lists of jpegs to sort all images into appropriate folders ###
 
 ## first set up directories:
-# in FracAtlas, make a new directory called "Split", then make 2 directories inside "Split" named "Test" and "Train"
+# in FracAtlas, make a new directory called "Split", then make 2 directories inside "Split" named "test" and "train"
 # Within the "Test" and "Train" directories, make 2 folders named "Fractured" and "Non-fractured" as well
 # Now copy all images from both "Fractured" and "Non-fractured" in "images" to "Split"
 
@@ -45,31 +45,31 @@ file_list = [f for f in listdir(Split_path) if isfile(join(Split_path, f))] # ge
 ## and check if they're in X_train or not
 for file in file_list:
     if X_train[0].str.contains(file).any():
-        os.rename(Split_path+"/"+file, Split_path+"/Train/"+file)
+        os.rename(Split_path+"/"+file, Split_path+"/train/"+file)
     else:
-        os.rename(Split_path+"/"+file, Split_path+"/Test/"+file)
-    # move to Train if they are or Test if they aren't
+        os.rename(Split_path+"/"+file, Split_path+"/test/"+file)
+    # move to train if they are or test if they aren't
 
 ## now split test and train further into fractured and non-fractured categories
 
 # for Test:
-Test_file_list = [f for f in listdir(Split_path+"/Test") if isfile(join(Split_path+"/Test", f))]
+Test_file_list = [f for f in listdir(Split_path+"/test") if isfile(join(Split_path+"/test", f))]
 # if file in test appears in the frac list,
 for file in Test_file_list:
     if frac[0].str.contains(file).any():
         # put in Frac folder
-        os.rename(Split_path+"/Test/"+file, Split_path+"/Test/Fractured/"+file)
+        os.rename(Split_path+"/test/"+file, Split_path+"/test/Fractured/"+file)
     else:
         # put in Nonfrac folder
-        os.rename(Split_path+"/Test/"+file, Split_path+"/Test/Non-fractured/"+file)
+        os.rename(Split_path+"/test/"+file, Split_path+"/test/Non-fractured/"+file)
 
 # for Train:
-Train_file_list = [f for f in listdir(Split_path+"/Train") if isfile(join(Split_path+"/Train", f))]
+Train_file_list = [f for f in listdir(Split_path+"/train") if isfile(join(Split_path+"/train", f))]
 # if file in test appears in the frac list,
 for file in Train_file_list:
     if frac[0].str.contains(file).any():
         # put in Frac folder
-        os.rename(Split_path+"/Train/"+file, Split_path+"/Train/Fractured/"+file)
+        os.rename(Split_path+"/train/"+file, Split_path+"/train/Fractured/"+file)
     else:
         # put in Nonfrac folder
-        os.rename(Split_path+"/Train/"+file, Split_path+"/Train/Non-fractured/"+file)
+        os.rename(Split_path+"/train/"+file, Split_path+"/train/Non-fractured/"+file)
