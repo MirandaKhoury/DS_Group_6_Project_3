@@ -8,12 +8,12 @@ Software used: We used the coding language R and IDE software RStudio OR the cod
 Add-on packages installed with software:
 
 Python libraries
--keras
--os
--Numpy 
--tensorflow
--Pillow
--pandas
+- keras
+- os
+- Numpy 
+- tensorflow
+- Pillow
+- pandas
 
 No R packages used
 
@@ -24,8 +24,8 @@ Platform: We used the platform Windows for our project.
  
 Data folder: 
 
--Data Appendix.pdf 
--Data_explanation.pdf
+- Data Appendix.pdf 
+- Data_explanation.pdf
 
 Output folder:
 
