@@ -26,10 +26,14 @@ data = read.csv("FracAtlas/dataset.csv")
 
 frac_ids = c(data[which(data$fractured == 1),]$image_id)
 unfrac_ids = c(data[which(data$fractured == 0),]$image_id)
+
+#must create test/Fractured, test/Not Fractured, train/Fractured, and train/Not Fractured manually before executing this code
 do.call(file.remove, list(list.files("FracAtlas/images/test/Fractured", full.names = TRUE)))
 do.call(file.remove, list(list.files("FracAtlas/images/train/Fractured", full.names = TRUE)))
 do.call(file.remove, list(list.files("FracAtlas/images/test/Not Fractured", full.names = TRUE)))
 do.call(file.remove, list(list.files("FracAtlas/images/train/Not Fractured", full.names = TRUE)))
+
+#fills Fractured test and train folders with images
 for (i in frac_ids) {
   rand = runif(1, min = 0, max = 5)
   if (rand <= 4) {
@@ -40,6 +44,7 @@ for (i in frac_ids) {
   }
 }
 
+#fills Not Fractured test and train folders with images
 for (i in unfrac_ids) {
   rand = runif(1, min = 0, max = 5)
   if (rand <= 4) {
