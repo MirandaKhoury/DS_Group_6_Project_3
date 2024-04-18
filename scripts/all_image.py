@@ -11,9 +11,9 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
  
 from keras.models import load_model
  
-model = load_model('model_all.keras')
+model = load_model('{your model}.keras')
 
-path = 'FracAtlas/images/Non_fractured'
+path = '{path to folder of images}'
 imgs = []
 valid_images = [".jpg"]
 avg_frac = 0;
@@ -31,4 +31,4 @@ for i in imgs:
     label = model.predict(img)
     avg_frac = avg_frac + label[0][0]
     
-print(avg_frac/3366)
+print(avg_frac/ {total number of images in folder on line 14})
