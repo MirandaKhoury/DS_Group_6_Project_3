@@ -11,8 +11,8 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 img_width, img_height = 224, 224
 
 # these two folder are filled by the .rmd script
-train_data_dir = 'FracAtlas/images/train'
-validation_data_dir = 'FracAtlas/images/test'
+train_data_dir = 'FracAtlas/images/train' # change to 'FracAtlas/Split/train' if you ran the .py image_divide script instead of the .rmd one
+validation_data_dir = 'FracAtlas/images/test' # change to 'FracAtlas/Split/test' if you ran the .py image_divide script instead of the .rmd one
 nb_train_samples = {total number of training samples}
 nb_validation_samples = {total number of testing samples}
 
